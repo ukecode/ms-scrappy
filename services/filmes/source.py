@@ -34,4 +34,4 @@ def detalhes_filme(url):
     result = []
     for link in div_links:
         result.append({"name": link.text, "url": link['href'].split('&')[0]})
-    return result
+    return {"data": result}
