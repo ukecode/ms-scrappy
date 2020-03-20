@@ -27,9 +27,16 @@ def investmentNow():
         return jsonify(investments.listAcoes(body['acoes']))
 
 
-@app.route('/filmes')
+@app.route('/filmes', methods=['POST'])
 def filmesagora():
-    return filmes.result()
+    body = request.json
+    return jsonify(filmes.result(body['url']))
+
+@app.route('/filmes/detalhes', methods=['POST'])
+def detalhesfilmes():
+    body = request.json
+    return jsonify(filmes.detalhes_filme(body['url']))
+
 
 
 if __name__ == '__main__':

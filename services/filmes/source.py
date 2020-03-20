@@ -13,13 +13,10 @@ def trata_filme(filme):
         "img": img,
         "url": url
     }
-
     return result
 
-
-def result():
+def result(url):
     result = []
-    url = "http://www.megatorrentshd.org/"
     site = requests.get(url)
     soup = BeautifulSoup(site.text, 'html.parser')
 
@@ -28,3 +25,13 @@ def result():
     for filme in filmes:
         result.append(trata_filme(filme))
     return {"data": result}
+
+def detalhes_filme(url):
+    site = requests.get(url)
+    soup = BeautifulSoup(site.text, 'html.parser')
+    div_links = soup.find_all('a', {'style': 'color: #fff;'})
+    
+    result = []
+    for link in div_links:
+        result.append({"name": link.text, "url": link['href'].split('&')[0]})
+    return result
