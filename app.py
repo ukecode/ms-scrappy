@@ -29,12 +29,12 @@ def investmentNow():
 
 @app.route('/filmes', methods=['POST'])
 def filmesagora():
-    body = request.json
-    return jsonify(filmes.result(body['url']))
+    return jsonify(filmes.result())
 
 @app.route('/filmes/detalhes', methods=['POST'])
 def detalhesfilmes():
     body = request.json
+    print(body['url'])
     return jsonify(filmes.detalhes_filme(body['url']))
 
 
