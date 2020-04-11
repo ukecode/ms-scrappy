@@ -1,15 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_value(soup):
     value = soup.find('div', {"class": "value"})
     value = value.find('p')
-    return float(value.text.replace(",","."))
+    return float(value.text.replace(",", "."))
+
 
 def get_variation_day(soup):
     value = soup.find('div', {"class": "percentage"})
     value = value.find('p')
-    return value.text.replace(",",".").strip()
+    return value.text.replace(",", ".").strip()
 
 
 def listAcoes(acoes):
