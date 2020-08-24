@@ -1,5 +1,5 @@
-import requests
 import bs4
+import requests
 import flask
 
 from flask import Flask
@@ -25,6 +25,11 @@ def investmentNow():
     if request.method == 'POST':
         body = request.json
         return jsonify(investments.listAcoes(body['acoes']))
+
+@app.route('/investments/euro-real', methods=['POST'])
+def get_euro_real():
+    if request.method == 'POST':
+        return jsonify(investments.get_euro_real())
 
 
 @app.route('/filmes', methods=['POST'])

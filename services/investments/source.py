@@ -21,11 +21,36 @@ def listAcoes(acoes):
         site = requests.get(url)
         soup = BeautifulSoup(site.text, 'html.parser')
 
-        ret = {
-            "name": acao,
-            "value": get_value(soup),
-            "variation_day": get_variation_day(soup)
-        }
+        if (acao in ["EURO","DOLAR"]):
+            ret = {
+                "name": acao,
+                "value": get_exchange(acoes[acao]),
+                "variation_day": 0
+            }
+        else: 
+            ret = {
+                "name": acao,
+                "value": get_value(soup),
+                "variation_day": get_variation_day(soup)
+            }
 
         result.append(ret)
     return result
+
+def getId(soup, id):
+    value = soup.find('id', id)
+    return value
+
+def getInput(soup, input):
+    value = soup.find('input', input)
+    return value
+
+def get_exchange(coin):
+    url = "https://economia.uol.com.br/cotacoes/cambio/" + coin
+    site = requests.get(url)
+    soup = BeautifulSoup(site.text, 'html.parser')
+    my_input = {"class": "field normal", "name":"currency2" }
+    ret =  getInput(soup, my_input)['value']
+    return float(ret.replace(",","."))
+
+
